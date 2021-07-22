@@ -10,7 +10,7 @@ barajarEquipos(equiposEurocopa);
 
 //Al arrancar el programa se deberá mostrar por pantalla la información de los equipos que hay en cada grupo y la planificación de partidos del mismo.
 
-console.log ("=========== COMIENZA LA EUROCOPA ===========")
+console.log ("=========== COMIENZA LA EUROCOPA ===========");
 
 
 //DIVIDIMOS LOS EQUIPOS EN 8 GRUPOS. VOLVER A MIRAR PARA HACER CON UN BUCLE.
@@ -34,6 +34,7 @@ function numeroAleatorio(partido) {
 function resultado (partido){
     encuentro = []
     ganador=[]
+    perdedor = []
     for (let valor of partido){
         encuentro.push(valor);
         let resultado = numeroAleatorio(valor);
@@ -50,19 +51,22 @@ function resultado (partido){
     }
         
     }
-    //console.log(encuentro);
-    if (encuentro[1]>encuentro[3]){
-        //console.log(`${encuentro[0]} ha ganado el partido`)
-        ganador.push(encuentro[0])}
-    else {
-        //console.log(`${encuentro[2]} ha ganado el partido`)
-        ganador.push(encuentro[2])
-    }
+        //console.log(encuentro);
+        if (encuentro[1]>encuentro[3]){
+            //console.log(`${encuentro[0]} ha ganado el partido`)
+            ganador.push(encuentro[0])
+            perdedor.push(encuentro[2])
+        }
+        else {
+            //console.log(`${encuentro[2]} ha ganado el partido`)
+            ganador.push(encuentro[2])
+            perdedor.push(encuentro[0])
+        }
     console.log(`${encuentro[0]} ${encuentro[1]} - ${encuentro[2]} ${encuentro[3]} => ${ganador}`)  
 }
 
 //JUGAMOS LOS OCTAVOS DE FINAL
-console.log ("=========== OCTAVOS DE FINAL ===========")
+console.log ("=========== OCTAVOS DE FINAL ===========");
 resultado(q1);
 const ganadorQ1 = ganador;
 resultado(q2);
@@ -80,15 +84,47 @@ const ganadorQ7 = ganador;
 resultado(q8);
 const ganadorQ8 = ganador;
 
-//Nombre del grupo
+//COMIENZAN LOS CUARTOS DE FINAL
+console.log ("=========== CUARTOS DE FINAL ===========");
+const oct1= ganadorQ1.concat(ganadorQ8);
+const oct2= ganadorQ7.concat(ganadorQ2);
+const oct3= ganadorQ3.concat(ganadorQ6);
+const oct4= ganadorQ5.concat(ganadorQ4);
 
-//Listado de los equipos ( una en cada línea)
+resultado(oct1); //GANADOR Q1-Q8
+const ganadorOct1 = ganador;
+resultado(oct2); //GANADOR Q2-Q7
+const ganadorOct2 = ganador;
+resultado(oct3); //GANADOR Q3-Q6
+const ganadorOct3 = ganador;
+resultado(oct4); //GANADOR Q4-Q5
+const ganadorOct4 = ganador;
 
-//La asignación de los equipos a cada grupo se realizará de manera aleatoria.
+//COMIENZAN LAS SEMIFINALES
+console.log ("=========== SEMIFINALES ===========");
+const semi1 = ganadorOct1.concat(ganadorOct3);
+const semi2 = ganadorOct2.concat(ganadorOct4);
 
-//Después se anunciará con un texto el comienzo del torneo
+resultado(semi1); //GANADOR Q1-Q8
+const ganadorSemi1 = ganador;
+const perdedorSemi1 = perdedor;
+resultado(semi2); //GANADOR Q2-Q7
+const ganadorSemi2 = ganador;
+const perdedorSemi2 = perdedor;
 
-//A continuación se mostrarán los resultados de los partidos y la clasificación de cada grupo tras el final de la primera jornada de partidos, después los de la segunda jornada, y finalmente los de la tercera jornada. Una vez finalice la fase de grupos, se deberán anunciar el comienzo de la fase de eliminatorias.
+//TERCER Y CUARTO PUESTO
+console.log ("=========== TERCER Y CUARTO PUESTO ===========");
+const tercerCuarto = perdedorSemi1.concat(perdedorSemi2);
+resultado(tercerCuarto)
 
-//A partir de aquí, se continuaría con l os requisitos del programa mínimo
+//FINAL
+console.log ("=========== FINAL ===========");
+const final = ganadorSemi1.concat(ganadorSemi2);
+resultado(final)
+ganadorFinal = ganador
+console.log (`========== ${ganadorFinal} campeón de la EURO ==========`)
+
+
+
+
 
