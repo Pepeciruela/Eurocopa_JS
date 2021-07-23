@@ -41,15 +41,16 @@ function resultado (partido){
         encuentro.push(resultado);
         //console.log(`${valor} ha marcado ${resultado} goles`)
     }
-    if (encuentro[1] === encuentro[3]){
+    while (encuentro[1] === encuentro[3]){
         encuentro = []
+        ganador=[]
+        perdedor = []
         for (let valor of partido){
         encuentro.push(valor);
         let resultado = numeroAleatorio(valor);
-        encuentro.push(resultado);
+        encuentro.push(resultado);    
         //console.log(`${valor} ha marcado ${resultado} goles`)
-    }
-        
+    }   
     }
         //console.log(encuentro);
         if (encuentro[1]>encuentro[3]){
@@ -123,8 +124,6 @@ const final = ganadorSemi1.concat(ganadorSemi2);
 resultado(final)
 ganadorFinal = ganador
 console.log (`========== ${ganadorFinal} campeón de la EURO ==========`)
-
-
 
 
 
