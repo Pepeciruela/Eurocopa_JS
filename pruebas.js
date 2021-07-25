@@ -12,7 +12,6 @@ barajarEquipos(equiposEurocopa);
 
 console.log ("=========== COMIENZA LA EUROCOPA ===========");
 
-
 //DIVIDIMOS LOS EQUIPOS EN 8 GRUPOS. VOLVER A MIRAR PARA HACER CON UN BUCLE.
 
 /*function separarEquipos (equipos){
@@ -27,13 +26,17 @@ console.log ("=========== COMIENZA LA EUROCOPA ===========");
 
 separarEquipos(equiposEurocopa);*/
 
-equiposEurocopa.forEach(equipo => {
-    const equiposSeparados = []
-    let j =1;
-    equiposSeparados["Q" [j]] = equiposEurocopa.splice(0,2);
-    ++j;
+// const equiposSeparados = equiposEurocopa.map (function(x){
+//     equiposEurocopa.splice(0,2);
+// })
+
+// equiposEurocopa.forEach(equipo => {
+//     const equiposSeparados = []
+//     let j =1;
+//     equiposSeparados["Q" [j]] = equiposEurocopa.splice(0,2);
+//     ++j;
     
-}
+// }
 console.log(equiposSeparados);
-);
+
 

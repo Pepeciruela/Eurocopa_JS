@@ -1,4 +1,4 @@
-const equipos = [
+const equiposEuro = [
   "Turquía",
   "Italia",
   "Gales",
@@ -25,3 +25,4 @@ const equipos = [
   "Alemania",
 ];
 
+export default equiposEuro;
