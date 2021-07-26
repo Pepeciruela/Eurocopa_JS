@@ -79,7 +79,6 @@ export default class Eurocopa{
 
         this.equiposLocales();
         this.equiposVisitantes();
-        this.ultimoEquipo();
 
     }
 
@@ -120,7 +119,30 @@ export default class Eurocopa{
         });
     }
 
-    this.ultimoEquipo(){
-        
+    jugar(){
+        console.log("EMPIEZA LA EUROCOPA");
+        for (const jornada of this.planificacion) {
+            for (const partido of jornada){
+                const result =this.jugarPartido(partido);
+                //console.log(resultado);
+            }
+        }
     }
+
+    generadorGoles(){
+        return Math.floor(Math.random()*10);
+    }
+
+    jugarPartido(partido) {
+        const golesLocal = this.generadorGoles();
+        const golesVisitante = this.generadorGoles();
+        return {
+            local : partido.local,
+            golesLocal,
+            visitante: partido.visitante, golesVisitante
+        }
+
+    }
+
+
 }
