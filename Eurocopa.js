@@ -78,6 +78,8 @@ export default class Eurocopa{
         }
 
         this.equiposLocales();
+        this.equiposVisitantes();
+        this.ultimoEquipo();
 
     }
 
@@ -96,4 +98,29 @@ export default class Eurocopa{
         })
     }
 
+    equiposVisitantes (){
+        const nombreEquipos = this.equipos.map(equipo => equipo.nombre);
+        const equiposMaximos = nombreEquipos.length-2;
+        let indice = equiposMaximos;
+        this.planificacion.forEach(jornada => {
+            let primerPartido = true;
+            jornada.forEach(partido => {
+                if (primerPartido) {
+                    partido.visitante = nombreEquipos[nombreEquipos.length-1];
+                    primerPartido = false;
+                }
+                else {
+                    partido.visitante = nombreEquipos[indice];
+                    indice--;
+                    if(indice<0){
+                        indice=equiposMaximos;
+                    }
+                }
+            })
+        });
+    }
+
+    this.ultimoEquipo(){
+        
+    }
 }

@@ -1,4 +1,4 @@
-import {equipos} from "./equipos.js";
+import equiposEuro from "./equipos.js";
 
 const equiposEurocopa = ["ESP", "ING", "ITL", "FRN", "HOL", "BEL", "RUS", "POL", "ALM", "SRB", "POR", "NOR", "UKR", "TUR", "LET", "SUE"];
 
