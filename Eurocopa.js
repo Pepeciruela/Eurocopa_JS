@@ -32,6 +32,7 @@ export default class Eurocopa{
                 puntos: 0,
                 golesFavor: 0,
                 golesContra: 0,
+                diferenciaGoles: 0,
             }
 
             this.equipos.push(equipo);
@@ -129,8 +130,10 @@ export default class Eurocopa{
 
         equipoCasa.golesFavor += resultado.golesLocal;
         equipoCasa.golesContra += resultado.golesVisitante;
+        equipoCasa.diferenciaGoles += resultado.golesLocal - resultado.golesVisitante;
         equipoFuera.golesFavor += resultado.golesVisitante;
         equipoFuera.golesContra += resultado.golesLocal;
+        equipoFuera.diferenciaGoles += resultado.golesVisitante - resultado.golesLocal;
 
         if(resultado.golesLocal > resultado.golesVisitante) {
             equipoCasa.puntos += this.configuracion.puntosGanar;

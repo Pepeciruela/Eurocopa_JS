@@ -27,6 +27,7 @@ euro2021.planificacion.forEach((jornada, indice) => {
 })
 
 euro2021.jugar();
+console.table(euro2021.equipos);
 //console.log(euro2021.planificacion);
 // for(let i in euro2021.equipos){
 //     const equipo = euro2021.equipos[i];

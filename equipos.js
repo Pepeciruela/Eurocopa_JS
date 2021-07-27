@@ -1,6 +1,8 @@
 const equiposEuro = [
   "Turquía",
   "Italia",
+  "Gales",
+  "Suiza",
 ];
 
 // const equiposEuro = [
