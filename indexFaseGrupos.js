@@ -2,7 +2,9 @@ import equiposEuro from "./equipos.js";
 
 import Eurocopa from "./Eurocopa.js";
 
-const euro2021 = new Eurocopa ("Eurocopa", ["A", "B", "C", "D"]);
+const euro2021 = new Eurocopa ("Eurocopa", equiposEuro);
+
+console.log (equiposEuro);
 
 console.log (`El nombre de esta liga es ${euro2021.nombre}`);
 

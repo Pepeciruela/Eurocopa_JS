@@ -1,29 +1,3 @@
-// const equipos = [
-//     "Turquía",
-//     "Italia",
-//     "Gales",
-//     "Suiza",
-//     "Dinamarca",
-//     "Finlandia",
-//     "Bélgica",
-//     "Rusia",
-//     "Holanda",
-//     "Ucrania",
-//     "Austria",
-//     "Macedonia",
-//     "Inglaterra",
-//     "Croacia",
-//     "Escocia",
-//     "República Checa",
-//     "España",
-//     "Suecia",
-//     "Polonia",
-//     "Eslovaquia",
-//     "Hungría",
-//     "Portugal",
-//     "Francia",
-//     "Alemania",
-//   ];
 
 import equiposEuro from "./equipos.js";
 
@@ -123,8 +97,9 @@ export default class Eurocopa{
         console.log("EMPIEZA LA EUROCOPA");
         for (const jornada of this.planificacion) {
             for (const partido of jornada){
-                const result =this.jugarPartido(partido);
-                //console.log(resultado);
+                const resultado =this.jugarPartido(partido);
+                this.actualizacionEquipos(resultado);
+                console.log(resultado);
             }
         }
     }
@@ -137,12 +112,45 @@ export default class Eurocopa{
         const golesLocal = this.generadorGoles();
         const golesVisitante = this.generadorGoles();
         return {
-            local : partido.local,
-            golesLocal,
+            local : partido.local,golesLocal,
             visitante: partido.visitante, golesVisitante
         }
-
     }
+
+    estadisticasPorEquipo (nombre){
+        return this.equipos.find(equipo => equipo.nombre === nombre)
+    }
+
+    actualizacionEquipos(resultado) {
+        console.log("Actualizacion equipos", resultado);
+
+        const equipoCasa = this.estadisticasPorEquipo(resultado.local);
+        const equipoFuera = this.estadisticasPorEquipo(resultado.visitante);
+
+        equipoCasa.golesFavor += resultado.golesLocal;
+        equipoCasa.golesContra += resultado.golesVisitante;
+        equipoFuera.golesFavor += resultado.golesVisitante;
+        equipoFuera.golesContra += resultado.golesLocal;
+
+        if(resultado.golesLocal > resultado.golesVisitante) {
+            equipoCasa.puntos += this.configuracion.puntosGanar;
+            equipoCasa.partidosGanados++;
+            equipoFuera.partidosPerdidos++;
+
+        } else if (resultado.golesVisitante > resultado.golesLocal) {
+            equipoFuera.puntos += this.configuracion.puntosGanar;
+            equipoFuera.partidosGanados++;
+            equipoCasa.partidosPerdidos++;
+        } else {
+            equipoCasa.puntos += this.configuracion.puntosEmpatar;
+            equipoFuera.puntos += this.configuracion.puntosEmpatar;
+            equipoCasa.partidosEmpatados++;
+            equipoFuera.partidosEmpatados++;
+        }
+        console.log ("equipoCasa", equipoCasa);
+        console.log ("equipoFuera", equipoFuera);
+    }
+
 
 
 }
