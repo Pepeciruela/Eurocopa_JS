@@ -8,6 +8,7 @@ export default class Eurocopa{
         this.planificacion = [];
         this.configuracionDefecto(configuracion);
         this.configuracionEquipos(equipos);
+        this.jornadasGuardadas = [];
 
     }
 
@@ -95,14 +96,21 @@ export default class Eurocopa{
     }
 
     jugar(){
-        console.log("EMPIEZA LA EUROCOPA");
         for (const jornada of this.planificacion) {
+            const actualizarJornada = {
+                resultados: [],
+                clasificacion: undefined,
+            }
             for (const partido of jornada){
                 const resultado =this.jugarPartido(partido);
                 this.actualizacionEquipos(resultado);
-                console.log(resultado);
+                actualizarJornada.resultados.push(resultado);
+                
             }
+            actualizarJornada.clasificacion = this.obtenerClasificacion();//.map(equipo => Object.assign({}, equipo));
+            this.jornadasGuardadas.push(actualizarJornada);
         }
+        
     }
 
     generadorGoles(){
@@ -123,7 +131,7 @@ export default class Eurocopa{
     }
 
     actualizacionEquipos(resultado) {
-        console.log("Actualizacion equipos", resultado);
+        //console.log("Actualizacion equipos", resultado);
 
         const equipoCasa = this.estadisticasPorEquipo(resultado.local);
         const equipoFuera = this.estadisticasPorEquipo(resultado.visitante);
@@ -150,10 +158,23 @@ export default class Eurocopa{
             equipoCasa.partidosEmpatados++;
             equipoFuera.partidosEmpatados++;
         }
-        console.log ("equipoCasa", equipoCasa);
-        console.log ("equipoFuera", equipoFuera);
+        //console.log ("equipoCasa", equipoCasa);
+        //console.log ("equipoFuera", equipoFuera);
     }
 
+    obtenerClasificacion(){
+        console.table(this.equipos);
+        // this.equipos.sort(function(equipoA, equipoB){
+        //     if (equipoA.puntos > equipoB.puntos) {
+        //         return -1
+        //     } else if (equipoA.puntos < equipoB.puntos){
+        //         return 1
+        //     } else {
+        //         return 0
+        //     }
+        // })
+        // return this.equipos;
+    }
 
 
 }
