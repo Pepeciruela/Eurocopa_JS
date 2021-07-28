@@ -107,7 +107,7 @@ export default class Eurocopa{
                 actualizarJornada.resultados.push(resultado);
                 
             }
-            actualizarJornada.clasificacion = this.obtenerClasificacion();//.map(equipo => Object.assign({}, equipo));
+            actualizarJornada.clasificacion = this.obtenerClasificacion().map(equipo => Object.assign({}, equipo));
             this.jornadasGuardadas.push(actualizarJornada);
         }
         
@@ -163,17 +163,25 @@ export default class Eurocopa{
     }
 
     obtenerClasificacion(){
-        console.table(this.equipos);
-        // this.equipos.sort(function(equipoA, equipoB){
-        //     if (equipoA.puntos > equipoB.puntos) {
-        //         return -1
-        //     } else if (equipoA.puntos < equipoB.puntos){
-        //         return 1
-        //     } else {
-        //         return 0
-        //     }
-        // })
-        // return this.equipos;
+        //console.table(this.equipos);
+        this.equipos.sort(function(equipoA, equipoB){
+            if (equipoA.puntos > equipoB.puntos) {
+                return -1
+            } else if (equipoA.puntos < equipoB.puntos){
+                return 1
+            } else {
+                const diferenciaGolesA = equipoA.golesFavor - equipoA.golesContra;
+                const diferenciaGolesB = equipoB.golesFavor - equipoB.golesContra;
+                if (diferenciaGolesA > diferenciaGolesB) {
+                    return -1
+                } else if (diferenciaGolesA < diferenciaGolesB) {
+                    return 1
+                } else {
+                    return 0
+                }
+            }
+        })
+        return this.equipos;
     }
 
 

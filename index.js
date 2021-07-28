@@ -31,8 +31,19 @@ euro2021.planificacion.forEach((jornada, indice) => {
 //JUGAR LIGA
 console.log("EMPIEZA LA EUROCOPA");
 euro2021.jugar();
-console.log("SOY JORNADAS GUARDADAS");
-console.log(euro2021.jornadasGuardadas[2].resultados);
+euro2021.jornadasGuardadas.forEach((jornadaGuardada, indice) => {
+    console.log(`Resultados jornada ${indice+1}`)
+    jornadaGuardada.resultados.forEach(resultado => {
+        console.log(`${resultado.local} vs ${resultado.visitante} : ${resultado.golesLocal} - ${resultado.golesVisitante}`)
+    })
+    console.table(jornadaGuardada.clasificacion);
+})
+
+
+
+//console.log("SOY JORNADAS GUARDADAS");
+//console.log(euro2021.jornadasGuardadas[2].resultados);
+//console.table(euro2021.jornadasGuardadas[2].clasificacion);
 //console.table(euro2021.jornadasGuardadas[5].actualizarJornada);
 
 //PINTAR TABLA
