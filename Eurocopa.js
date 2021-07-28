@@ -177,7 +177,16 @@ export default class Eurocopa{
                 } else if (diferenciaGolesA < diferenciaGolesB) {
                     return 1
                 } else {
-                    return 0
+                    const letraNombreA = equipoA.nombre;
+                    const letraNombreB = equipoB.nombre;
+                    if(letraNombreA < letraNombreB) {
+                        return -1
+                    } else if (letraNombreA > letraNombreB) {
+                        return 1
+                    } else {
+                        return 0
+                    }
+    
                 }
             }
         })
