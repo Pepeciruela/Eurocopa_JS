@@ -36,8 +36,25 @@ euro2021.jornadasGuardadas.forEach((jornadaGuardada, indice) => {
     jornadaGuardada.resultados.forEach(resultado => {
         console.log(`${resultado.local} vs ${resultado.visitante} : ${resultado.golesLocal} - ${resultado.golesVisitante}`)
     })
-    console.table(jornadaGuardada.clasificacion);
-})
+
+    const jornadaImprimir = jornadaGuardada.clasificacion.map(equipo =>{
+        return{
+            Equipo: equipo.nombre,
+            Puntos: equipo.puntos,
+            PJ: equipo.partidosGanados + equipo.partidosPerdidos + equipo.partidosEmpatados,
+            PG: equipo.partidosGanados,
+            PE: equipo.partidosEmpatados,
+            PP: equipo.partidosPerdidos,
+            GF: equipo.golesFavor,
+            GC: equipo.golesContra,
+            DG: equipo.diferenciaGoles
+        }
+        })
+
+        console.table(jornadaImprimir);
+    })
+
+    
 
 
 
