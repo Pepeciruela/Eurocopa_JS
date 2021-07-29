@@ -1,0 +1,3 @@
+class FaseFinal{
+    constructor(equipos=[])
+}

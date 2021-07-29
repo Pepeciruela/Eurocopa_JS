@@ -26,8 +26,9 @@ export default function imprimirEmparejamientos (variable, grupo){
         jornada.forEach(partido => {
             console.log(`${partido.local} vs ${partido.visitante}`);
         })
-        console.log ("====================")
+        console.log ("====================") 
     })
+    console.log ("\n")
 
 }
 
@@ -49,7 +50,8 @@ export function imprimirJornadas(variable){
             PP: equipo.partidosPerdidos,
             GF: equipo.golesFavor,
             GC: equipo.golesContra,
-            DG: equipo.diferenciaGoles
+            DG: equipo.diferenciaGoles,
+            Grupo: equipo.grupo
         }
         })
 
@@ -57,7 +59,35 @@ export function imprimirJornadas(variable){
     })
 }
 
-imprimirJornadas(euro2021grupoA);
+export function ordenarTerceros(equipos){
+    equipos.sort(function(equipoA, equipoB){
+        if (equipoA.puntos > equipoB.puntos) {
+            return -1
+        } else if (equipoA.puntos < equipoB.puntos){
+            return 1
+        } else {
+            const diferenciaGolesA = equipoA.golesFavor - equipoA.golesContra;
+            const diferenciaGolesB = equipoB.golesFavor - equipoB.golesContra;
+            if (diferenciaGolesA > diferenciaGolesB) {
+                return -1
+            } else if (diferenciaGolesA < diferenciaGolesB) {
+                return 1
+            } else {
+                const letraNombreA = equipoA.nombre;
+                const letraNombreB = equipoB.nombre;
+                if(letraNombreA < letraNombreB) {
+                    return -1
+                } else if (letraNombreA > letraNombreB) {
+                    return 1
+                } else {
+                    return 0
+                }
+
+            }
+        }
+    })
+    return equipos;
+}
 
 
 

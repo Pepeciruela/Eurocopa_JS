@@ -31,6 +31,7 @@ export default class Eurocopa{
                 golesFavor: 0,
                 golesContra: 0,
                 diferenciaGoles: 0,
+                grupo: this.nombre,
             }
 
             this.equipos.push(equipo);
