@@ -1,6 +1,3 @@
-
-import equiposEuro from "./equipos.js";
-
 export default class Eurocopa{
 
     constructor(nombre, equipos =[], configuracion = {}){
