@@ -12,7 +12,11 @@ import imprimirEmparejamientos from "./imprimir.js"
 import {imprimirJornadas} from "./imprimir.js"
 import {ordenarTerceros} from "./imprimir.js"
 
+import{resultadoP} from "./partidosEliminatoria.js"
 
+import {ganador1} from "./partidosEliminatoria.js"
+import {perdedor1} from "./partidosEliminatoria.js"
+import {encuentro1} from "./partidosEliminatoria.js"
 
 //MOSTRAR GRUPOS Y EQUIPOS POR PANTALLA
 console.log("Grupos y equipos")
@@ -166,7 +170,7 @@ for (let item of dieciseisFinal){
     console.log(item);
 }
 
-//DIVIDIMOS LOS EQUIPOS EN 8 GRUPOS. VOLVER A MIRAR PARA HACER CON UN BUCLE.
+//DIVIDIMOS LOS EQUIPOS EN 8 GRUPOS.
 
 const q1 = dieciseisFinal.splice(0,2);
 const q2 = dieciseisFinal.splice(0,2);
@@ -176,70 +180,6 @@ const q5 = dieciseisFinal.splice(0,2);
 const q6 = dieciseisFinal.splice(0,2);
 const q7 = dieciseisFinal.splice(0,2);
 const q8 = dieciseisFinal.splice(0,2);
-
-//CREAMOS UNA FUNCIÓN QUE DE UN NÚMERO ALEATORIO ENTRE 1 Y 10.
-
-function numeroAleatorio(partido) {
-    return Math.floor((Math.random()*9)+1);
-} 
-
-//JUAGAMOS LOS ENCUENTROS DE LAS RONDAS, SACAMOS EL RESULTADO DE CADA PARTIDO Y EL GANADOR.
-let ganador1 = [];
-let perdedor1 = [];
-let encuentro1 =[];
-
-function resultadoP (partido){
-    let encuentro = [];
-    encuentro1 = encuentro;
-    let ganador=[];
-    ganador1 = ganador;
-    let perdedor = [];
-    perdedor1 = perdedor;
-
-    for (let valor of partido){
-        encuentro.push(valor);
-        let resultado = numeroAleatorio(valor);
-        encuentro.push(resultado);
-        while (encuentro[1] === encuentro[3]){
-            encuentro = [];
-            encuentro1 = encuentro;
-            let ganador=[];
-            ganador1 = ganador;
-            let perdedor = [];
-            perdedor1 = perdedor;
-            for (let valor of partido){
-                encuentro.push(valor);
-                let resultado = numeroAleatorio(valor);
-                encuentro.push(resultado);
-            }
-                if (encuentro[1]>encuentro[3]){
-                    //console.log(`${encuentro[0]} ha ganado el partido`)
-                    ganador.push(encuentro[0])
-                    perdedor.push(encuentro[2])
-                }
-                else {
-                    //console.log(`${encuentro[2]} ha ganado el partido`)
-                    ganador.push(encuentro[2])
-                    perdedor.push(encuentro[0])
-                }
-            
-    }}
-
-    if (encuentro[1]>encuentro[3]){
-        //console.log(`${encuentro[0]} ha ganado el partido`)
-        ganador.push(encuentro[0])
-        perdedor.push(encuentro[2])
-    }
-    else {
-        //console.log(`${encuentro[2]} ha ganado el partido`)
-        ganador.push(encuentro[2])
-        perdedor.push(encuentro[0])
-    }
-console.log(`${encuentro[0]} ${encuentro[1]} - ${encuentro[2]} ${encuentro[3]} => ${ganador}`)  
-}
-
-        
-    
 
 //JUGAMOS LOS OCTAVOS DE FINAL
 console.log("\n")
