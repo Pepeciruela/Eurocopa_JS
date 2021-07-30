@@ -6,7 +6,7 @@ import { grupoC } from "./equipos.js";
 import { grupoD } from "./equipos.js";
 import { grupoE } from "./equipos.js";
 import { grupoF } from "./equipos.js";
-import Eurocopa from "./Eurocopa.js";
+import Eurocopa from "./classes/Eurocopa.js";
 
 const euro2021grupoA = new Eurocopa ("Grupo A", grupoA);
 

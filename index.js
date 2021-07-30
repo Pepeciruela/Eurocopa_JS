@@ -1,4 +1,4 @@
-import equiposEuro from "./equipos.js";
+
 import { grupoA } from "./equipos.js";
 import { grupoB } from "./equipos.js";
 import { grupoC } from "./equipos.js";
@@ -6,7 +6,7 @@ import { grupoD } from "./equipos.js";
 import { grupoE } from "./equipos.js";
 import { grupoF } from "./equipos.js";
 
-import Eurocopa from "./Eurocopa.js";
+import Eurocopa from "./classes/Eurocopa.js";
 
 import imprimirEmparejamientos from "./imprimir.js"
 import {imprimirJornadas} from "./imprimir.js"
@@ -16,7 +16,8 @@ import{resultadoP} from "./partidosEliminatoria.js"
 
 import {ganador1} from "./partidosEliminatoria.js"
 import {perdedor1} from "./partidosEliminatoria.js"
-import {encuentro1} from "./partidosEliminatoria.js"
+
+
 
 //MOSTRAR GRUPOS Y EQUIPOS POR PANTALLA
 console.log("Grupos y equipos")
@@ -58,17 +59,13 @@ export const finalGrupoD = euro2021grupoD.equipos;
 export const finalGrupoE = euro2021grupoE.equipos;
 export const finalGrupoF = euro2021grupoF.equipos;
 
-const primerosGrupo = [].concat(finalGrupoA[0],finalGrupoB[0],finalGrupoC[0],finalGrupoD[0],finalGrupoE[0],finalGrupoF[0]);
-const segundosGrupo = [].concat(finalGrupoA[1],finalGrupoB[1],finalGrupoC[1],finalGrupoD[1],finalGrupoE[1],finalGrupoF[1]);
-const tercerosGrupo = [].concat(finalGrupoA[2],finalGrupoB[2],finalGrupoC[2],finalGrupoD[2],finalGrupoE[2],finalGrupoF[2]);
+export const primerosGrupo = [].concat(finalGrupoA[0],finalGrupoB[0],finalGrupoC[0],finalGrupoD[0],finalGrupoE[0],finalGrupoF[0]);
+export const segundosGrupo = [].concat(finalGrupoA[1],finalGrupoB[1],finalGrupoC[1],finalGrupoD[1],finalGrupoE[1],finalGrupoF[1]);
+export const tercerosGrupo = [].concat(finalGrupoA[2],finalGrupoB[2],finalGrupoC[2],finalGrupoD[2],finalGrupoE[2],finalGrupoF[2]);
 
 ordenarTerceros(tercerosGrupo);
 
-const mejoresTerceros = tercerosGrupo.slice(0,4);
-
-// console.log (primerosGrupo);
-// console.log (segundosGrupo);
-// console.log (mejoresTerceros);
+export const mejoresTerceros = tercerosGrupo.slice(0,4);
 
 const ochoMejores = [];
 const ochoPeores = [];
