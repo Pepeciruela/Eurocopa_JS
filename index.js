@@ -10,6 +10,8 @@ import Eurocopa from "./Eurocopa.js";
 
 import imprimirEmparejamientos from "./imprimir.js"
 import {imprimirJornadas} from "./imprimir.js"
+import {ordenarTerceros} from "./imprimir.js"
+
 
 
 //MOSTRAR GRUPOS Y EQUIPOS POR PANTALLA
@@ -31,9 +33,11 @@ imprimirEmparejamientos(euro2021grupoE, grupoE);
 imprimirEmparejamientos(euro2021grupoF, grupoF);
 
 //JUGAR LIGA
+
 console.log("=======================================");
 console.log("==========EMPIEZA LA EUROCOPA==========");
 console.log("=======================================");
+console.log("\n")
 
 imprimirJornadas(euro2021grupoA);
 imprimirJornadas(euro2021grupoB);
@@ -50,118 +54,262 @@ export const finalGrupoD = euro2021grupoD.equipos;
 export const finalGrupoE = euro2021grupoE.equipos;
 export const finalGrupoF = euro2021grupoF.equipos;
 
+const primerosGrupo = [].concat(finalGrupoA[0],finalGrupoB[0],finalGrupoC[0],finalGrupoD[0],finalGrupoE[0],finalGrupoF[0]);
+const segundosGrupo = [].concat(finalGrupoA[1],finalGrupoB[1],finalGrupoC[1],finalGrupoD[1],finalGrupoE[1],finalGrupoF[1]);
+const tercerosGrupo = [].concat(finalGrupoA[2],finalGrupoB[2],finalGrupoC[2],finalGrupoD[2],finalGrupoE[2],finalGrupoF[2]);
 
-// const primerosGrupo = [].concat(finalGrupoA[0],finalGrupoB[0],finalGrupoC[0],finalGrupoD[0],finalGrupoE[0],finalGrupoF[0]);
-// const segundosGrupo = [].concat(finalGrupoA[1],finalGrupoB[1],finalGrupoC[1],finalGrupoD[1],finalGrupoE[1],finalGrupoF[1]);
-// const tercerosGrupo = [].concat(finalGrupoA[2],finalGrupoB[2],finalGrupoC[2],finalGrupoD[2],finalGrupoE[2],finalGrupoF[2]);
+ordenarTerceros(tercerosGrupo);
 
-// ordenarTerceros(tercerosGrupo);
-
-// const mejoresTerceros = tercerosGrupo.slice(0,4);
+const mejoresTerceros = tercerosGrupo.slice(0,4);
 
 // console.log (primerosGrupo);
 // console.log (segundosGrupo);
 // console.log (mejoresTerceros);
 
-// //const dieciseisFinalistas = [].concat(primerosGrupo, segundosGrupo, mejoresTerceros);
+const ochoMejores = [];
+const ochoPeores = [];
+const gruposRepetidos = [];
 
-// // console.log("segundosGrupo");
-// // console.log(segundosGrupo);
-// // console.log("mejoresTerceros");
-// // console.log(mejoresTerceros);
+mejoresTerceros.forEach(tercero => {
+    gruposRepetidos.push(tercero.grupo);
+});
 
-// const ochoMejores = [];
-// const ochoPeores = [];
-// const gruposRepetidos = [];
+segundosGrupo.forEach(segundo =>{
+    if (segundo.grupo === gruposRepetidos[0] || segundo.grupo === gruposRepetidos[1] ||segundo.grupo ===  gruposRepetidos[2] ||segundo.grupo ===  gruposRepetidos[3]){
+        ochoPeores.push(segundo);
+    } else{
+        ochoMejores.push(segundo);
+    }
+})
 
+const cuadroFinal = [].concat(primerosGrupo,ochoMejores, ochoPeores, mejoresTerceros);
 
-// mejoresTerceros.forEach(tercero => {
-//     gruposRepetidos.push(tercero.grupo);
-// });
+// //FUNCIÓN PARA COLOCAR EQUIPOS ENFRENTADOS
+const eliminatoria = []
+function ordenEliminatoria(equipos){
+    const numeroPartidos = 1;
+    const partidosJornada = equipos.length/2;
 
-// segundosGrupo.forEach(segundo =>{
-//     if (segundo.grupo === gruposRepetidos[0] || segundo.grupo === gruposRepetidos[1] ||segundo.grupo ===  gruposRepetidos[2] ||segundo.grupo ===  gruposRepetidos[3]){
-//         ochoPeores.push(segundo);
-//     } else{
-//         ochoMejores.push(segundo);
-//     }
-// })
+    for (let i = 0; i < numeroPartidos; i++) {
+        const jornada = [];
+        for (let j = 0; j < partidosJornada; j++ ) {
+            const partido = { local: "A", visitante: "B"};
+            jornada.push(partido);
+        }
+        eliminatoria.push(jornada);
+}
 
-// const cuadroFinal = [].concat(primerosGrupo,ochoMejores, ochoPeores, mejoresTerceros);
+//EQUIPOS LOCALES
+const nombreEquiposL = equipos.map(equipo => equipo.nombre);
+const grupoEquiposL = equipos.map(equipo => equipo.grupo);
+    let indice2 = 0;
+    const equiposMaximos2 = nombreEquiposL.length-2;
+    eliminatoria.forEach(jornada => {
+        jornada.forEach(partido => {
+            partido.local = nombreEquiposL[indice2];
+            indice2++;
+            if (indice2 > equiposMaximos2){
+                indice2 = 0;
+            }
+        })
+    })
 
-// // console.log("ochoMejores");
-// // console.log(ochoMejores);
-// // console.log("ochoPeores");
-// // console.log(ochoPeores);
+    //EQUIPOS VISITANTES
 
+    const nombreEquiposV = equipos.map(equipo => equipo.nombre);
+    const grupoEquiposV = equipos.map(equipo => equipo.grupo);
+        const equiposMaximos = nombreEquiposV.length-2;
+        let indice = equiposMaximos;
+        eliminatoria.forEach(jornada => {
+            let primerPartido = true;
+            jornada.forEach(partido => {
+                if (primerPartido) {
+                    partido.visitante = nombreEquiposV[nombreEquiposV.length-1];
+                    primerPartido = false;
+                }
+                else {
+                    partido.visitante = nombreEquiposV[indice];
+                    indice--;
+                    if(indice<0){
+                        indice=equiposMaximos;
+                    }
+                }
+            })
+        });
+        // console.log(eliminatoria);
+        return eliminatoria;
+}
 
-// // //FUNCIÓN PARA COLOCAR EQUIPOS ENFRENTADOS
+ordenEliminatoria(cuadroFinal);
+const prueba = eliminatoria[0]
+// console.log(prueba);
+const resultado = Object.entries(eliminatoria[0][0]);
+// console.log (resultado);
 
-// function ordenEliminatoria(equipos){
-//     const eliminatoria = []
-//     const numeroPartidos = 1;
-//     const partidosJornada = equipos.length/2;
+const dieciseis = []
+for (const equipo of prueba) {
+    let cambio = Object.entries(equipo)
+    for (let key of cambio){
+        dieciseis.push(key[1]);
+    }
+}
 
-//     for (let i = 0; i < numeroPartidos; i++) {
-//         const jornada = [];
-//         for (let j = 0; j < partidosJornada; j++ ) {
-//             const partido = { local: "A", visitante: "B"};
-//             jornada.push(partido);
-//         }
-//         eliminatoria.push(jornada);
-// }
+const dieciseisFinal = dieciseis;
 
-// //EQUIPOS LOCALES
-// const nombreEquiposL = equipos.map(equipo => equipo.nombre);
-// const grupoEquiposL = equipos.map(equipo => equipo.grupo);
-//     let indice2 = 0;
-//     const equiposMaximos2 = nombreEquiposL.length-2;
-//     eliminatoria.forEach(jornada => {
-//         jornada.forEach(partido => {
-//             partido.local = nombreEquiposL[indice2];
-//             indice2++;
-//             if (indice2 > equiposMaximos2){
-//                 indice2 = 0;
-//             }
-//         })
-//     })
+const equiposDieciseisavos = dieciseisFinal.toString()
 
-//     //EQUIPOS VISITANTES
+//MOSTRAMOS EQUIPOS PARTICIPANTES POR PANTALLA
 
-//     const nombreEquiposV = equipos.map(equipo => equipo.nombre);
-//     const grupoEquiposV = equipos.map(equipo => equipo.grupo);
-//         const equiposMaximos = nombreEquiposV.length-2;
-//         let indice = equiposMaximos;
-//         eliminatoria.forEach(jornada => {
-//             let primerPartido = true;
-//             jornada.forEach(partido => {
-//                 if (primerPartido) {
-//                     partido.visitante = nombreEquiposV[nombreEquiposV.length-1];
-//                     primerPartido = false;
-//                 }
-//                 else {
-//                     partido.visitante = nombreEquiposV[indice];
-//                     indice--;
-//                     if(indice<0){
-//                         indice=equiposMaximos;
-//                     }
-//                 }
-//             })
-//         });
+console.log("Equipos clasificados para los dieciseisavos de final");
+console.log("\n");
+for (let item of dieciseisFinal){
+    console.log(item);
+}
 
-//         console.log(eliminatoria);
-// }
+//DIVIDIMOS LOS EQUIPOS EN 8 GRUPOS. VOLVER A MIRAR PARA HACER CON UN BUCLE.
 
-// ordenEliminatoria(cuadroFinal);
+const q1 = dieciseisFinal.splice(0,2);
+const q2 = dieciseisFinal.splice(0,2);
+const q3 = dieciseisFinal.splice(0,2);
+const q4 = dieciseisFinal.splice(0,2);
+const q5 = dieciseisFinal.splice(0,2);
+const q6 = dieciseisFinal.splice(0,2);
+const q7 = dieciseisFinal.splice(0,2);
+const q8 = dieciseisFinal.splice(0,2);
 
+//CREAMOS UNA FUNCIÓN QUE DE UN NÚMERO ALEATORIO ENTRE 1 Y 10.
 
-// //Unir todos los PRIMEROS en un Array
+function numeroAleatorio(partido) {
+    return Math.floor((Math.random()*9)+1);
+} 
 
+//JUAGAMOS LOS ENCUENTROS DE LAS RONDAS, SACAMOS EL RESULTADO DE CADA PARTIDO Y EL GANADOR.
+let ganador1 = []
+let perdedor1 = []
+let encuentro1=[]
+function resultadoP (partido){
+    let encuentro = [];
+    encuentro1=encuentro;
+    let ganador=[];
+    ganador1 = ganador;
+    let perdedor = [];
+    perdedor1 = perdedor;
+    for (let valor of partido){
+        encuentro.push(valor);
+        let resultado = numeroAleatorio(valor);
+        encuentro.push(resultado);
+    }
 
+    // while (encuentro[1] === encuentro[3]){
+    // let encuentro = [];
+    // encuentro1=encuentro;
+    // let ganador=[];
+    // ganador1 = ganador;
+    // let perdedor = [];
+    // perdedor1 = perdedor;
+    // for (let valor of partido){
+    //     encuentro.push(valor);
+    //     let resultado = numeroAleatorio(valor);
+    //     encuentro.push(resultado);
+    // }}
 
-// //Unir todos los SEGUNDOS en un Array
+        if (encuentro[1]>encuentro[3]){
+            //console.log(`${encuentro[0]} ha ganado el partido`)
+            ganador.push(encuentro[0])
+            perdedor.push(encuentro[2])
+        }
+        else {
+            //console.log(`${encuentro[2]} ha ganado el partido`)
+            ganador.push(encuentro[2])
+            perdedor.push(encuentro[0])
+        }
+    console.log(`${encuentro[0]} ${encuentro[1]} - ${encuentro[2]} ${encuentro[3]} => ${ganador}`)  
+}
 
-// //Unir todos los Terceros en un Array, y coger los 4 mejores.
+//JUGAMOS LOS OCTAVOS DE FINAL
+console.log("\n")
+console.log("=======================================");
+console.log("===========OCTAVOS DE FINAL============");
+console.log("=======================================");
+console.log("\n")
 
+resultadoP(q1);
+const ganadorQ1 = ganador1;
+resultadoP(q2);
+const ganadorQ2 = ganador1;
+resultadoP(q3);
+const ganadorQ3 = ganador1;
+resultadoP(q4);
+const ganadorQ4 = ganador1;
+resultadoP(q5);
+const ganadorQ5 = ganador1;
+resultadoP(q6);
+const ganadorQ6 = ganador1;
+resultadoP(q7);
+const ganadorQ7 = ganador1;
+resultadoP(q8);
+const ganadorQ8 = ganador1;
 
+//COMIENZAN LOS CUARTOS DE FINAL
+console.log("\n")
+console.log("=======================================");
+console.log("===========CUARTOS DE FINAL============");
+console.log("=======================================");
+console.log("\n")
+
+const oct1= ganadorQ1.concat(ganadorQ8);
+const oct2= ganadorQ7.concat(ganadorQ2);
+const oct3= ganadorQ3.concat(ganadorQ6);
+const oct4= ganadorQ5.concat(ganadorQ4);
+
+resultadoP(oct1); //GANADOR Q1-Q8
+const ganadorOct1 = ganador1;
+resultadoP(oct2); //GANADOR Q2-Q7
+const ganadorOct2 = ganador1;
+resultadoP(oct3); //GANADOR Q3-Q6
+const ganadorOct3 = ganador1;
+resultadoP(oct4); //GANADOR Q4-Q5
+const ganadorOct4 = ganador1;
+
+//COMIENZAN LAS SEMIFINALES
+console.log("\n")
+console.log("=======================================");
+console.log("=============SEMIFINALES===============");
+console.log("=======================================");
+console.log("\n")
+
+const semi1 = ganadorOct1.concat(ganadorOct3);
+const semi2 = ganadorOct2.concat(ganadorOct4);
+
+resultadoP(semi1); //GANADOR Q1-Q8
+const ganadorSemi1 = ganador1;
+const perdedorSemi1 = perdedor1;
+resultadoP(semi2); //GANADOR Q2-Q7
+const ganadorSemi2 = ganador1;
+const perdedorSemi2 = perdedor1;
+
+//TERCER Y CUARTO PUESTO
+console.log("\n")
+console.log("=======================================");
+console.log("============3º y 4º PUESTO=============");
+console.log("=======================================");
+console.log("\n")
+
+const tercerCuarto = perdedorSemi1.concat(perdedorSemi2);
+resultadoP(tercerCuarto)
+
+//FINAL
+console.log("\n")
+console.log("=======================================");
+console.log("=================FINAL=================");
+console.log("=======================================");
+console.log("\n")
+
+const final = ganadorSemi1.concat(ganadorSemi2);
+resultadoP(final)
+const ganadorFinal = ganador1
+
+console.log("\n")
+console.log (`========== ${ganadorFinal} campeón de la EURO ==========`)
+console.log("\n")
 

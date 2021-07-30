@@ -15,16 +15,9 @@ ordenarTerceros(tercerosGrupo);
 
 const mejoresTerceros = tercerosGrupo.slice(0,4);
 
-console.log (primerosGrupo);
-console.log (segundosGrupo);
-console.log (mejoresTerceros);
-
-//const dieciseisFinalistas = [].concat(primerosGrupo, segundosGrupo, mejoresTerceros);
-
-// console.log("segundosGrupo");
-// console.log(segundosGrupo);
-// console.log("mejoresTerceros");
-// console.log(mejoresTerceros);
+// console.log (primerosGrupo);
+// console.log (segundosGrupo);
+// console.log (mejoresTerceros);
 
 const ochoMejores = [];
 const ochoPeores = [];
@@ -43,12 +36,6 @@ segundosGrupo.forEach(segundo =>{
 })
 
 const cuadroFinal = [].concat(primerosGrupo,ochoMejores, ochoPeores, mejoresTerceros);
-
-// console.log("ochoMejores");
-// console.log(ochoMejores);
-// console.log("ochoPeores");
-// console.log(ochoPeores);
-
 
 // //FUNCIÓN PARA COLOCAR EQUIPOS ENFRENTADOS
 const eliminatoria = []
@@ -108,9 +95,9 @@ const grupoEquiposL = equipos.map(equipo => equipo.grupo);
 
 ordenEliminatoria(cuadroFinal);
 const prueba = eliminatoria[0]
-console.log(prueba);
+// console.log(prueba);
 const resultado = Object.entries(eliminatoria[0][0]);
-console.log (resultado);
+// console.log (resultado);
 
 const dieciseis = []
 for (const equipo of prueba) {
@@ -119,7 +106,5 @@ for (const equipo of prueba) {
         dieciseis.push(key[1]);
     }
 }
-
-console.log(dieciseis);
-
-
+export const dieciseisFinal = dieciseis;
+// console.log(dieciseisFinal);
